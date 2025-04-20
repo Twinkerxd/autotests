@@ -1,4 +1,4 @@
-package org.twinker.core.ui;
+package org.twinker.ui.core;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;

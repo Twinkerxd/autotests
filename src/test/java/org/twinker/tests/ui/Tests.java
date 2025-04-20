@@ -7,17 +7,17 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.twinker.core.ui.BaseTest;
-import org.twinker.pages.AuthPage;
-import org.twinker.pages.CartPage;
-import org.twinker.pages.InventoryPage;
+import org.twinker.ui.core.BaseTest;
+import org.twinker.ui.pages.AuthPage;
+import org.twinker.ui.pages.CartPage;
+import org.twinker.ui.pages.InventoryPage;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.twinker.pages.InventoryPage.ProductSortOption.PRICE_LOWER_HIGH;
+import static org.twinker.ui.pages.InventoryPage.ProductSortOption.PRICE_LOWER_HIGH;
 
 
 public class Tests extends BaseTest {

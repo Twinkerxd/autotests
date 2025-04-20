@@ -1,4 +1,4 @@
-package org.twinker.core.ui;
+package org.twinker.ui.core;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.twinker.pages.AuthPage;
+import org.twinker.ui.pages.AuthPage;
 
 import java.time.Duration;
 

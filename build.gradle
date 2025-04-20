@@ -16,6 +16,7 @@ dependencies {
     testImplementation 'io.rest-assured:rest-assured:5.5.1'
     testImplementation 'com.github.javafaker:javafaker:1.0.2'
     testImplementation 'org.projectlombok:lombok:1.18.24'
+    testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.18.2'
 }
 
 test {

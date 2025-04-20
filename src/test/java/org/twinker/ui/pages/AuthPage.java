@@ -1,10 +1,10 @@
-package org.twinker.pages;
+package org.twinker.ui.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.twinker.core.ui.BasePage;
+import org.twinker.ui.core.BasePage;
 
 public class AuthPage extends BasePage {
     //https://www.saucedemo.com/
