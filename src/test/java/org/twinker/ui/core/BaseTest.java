@@ -19,14 +19,9 @@ public class BaseTest {
     @BeforeEach
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
+        options.addArguments("--guest");
 
-        //Disabling the popup window from the Google Password Manager
-        options.addArguments("--disable-save-password-bubble");
-        options.addArguments("disable-infobars");
-        options.addArguments("--disable-notifications");
-        options.addArguments("--disable-extensions");
-
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
