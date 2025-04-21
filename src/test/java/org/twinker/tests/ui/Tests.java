@@ -19,12 +19,11 @@ import java.util.stream.Stream;
 
 import static org.twinker.ui.pages.InventoryPage.ProductSortOption.PRICE_LOWER_HIGH;
 
-
 public class Tests extends BaseTest {
-    //https://www.saucedemo.com/
+    // https://www.saucedemo.com/
 
     @Test
-    @DisplayName("End to end test")
+    @DisplayName("Complete purchase flow as standard user")
     @Tag("tag_one")
     public void endToEnd() {
         String actualResult = openMainPage()
@@ -46,6 +45,7 @@ public class Tests extends BaseTest {
     }
 
     @Test
+    @DisplayName("Check visibility and count of cart badge after adding product")
     public void visibleOfShoppingCartBadge() {
         InventoryPage inventoryPage = openMainPage()
                 .standardUserLogIn()
@@ -56,15 +56,25 @@ public class Tests extends BaseTest {
     }
 
     @Test
+    @DisplayName("Remove product from cart and verify cart is empty")
     public void removeItemFromCart() {
-        CartPage cartPage = openMainPage().standardUserLogIn().addRandomAddItemToCart().clickCartIcon();
+        CartPage cartPage = openMainPage()
+                .standardUserLogIn()
+                .addRandomAddItemToCart()
+                .clickCartIcon();
+
         Assertions.assertEquals(1, cartPage.getItemsCount());
         Assertions.assertEquals(0, cartPage.clickRemoveButton().getItemsCount());
     }
 
     @Test
+    @DisplayName("Sort products by price from low to high")
     public void sortByPrice() {
-        List<Double> list = openMainPage().standardUserLogIn().clickSortDropdown().selectSortOptionByValue(PRICE_LOWER_HIGH).getListOfPrices();
+        List<Double> list = openMainPage()
+                .standardUserLogIn()
+                .clickSortDropdown()
+                .selectSortOptionByValue(PRICE_LOWER_HIGH)
+                .getListOfPrices();
 
         List<Double> expectedResult = new ArrayList<>(list);
         expectedResult.sort(Comparator.naturalOrder());
@@ -73,15 +83,20 @@ public class Tests extends BaseTest {
     }
 
     @Test
+    @DisplayName("Check title color after mouse hover on product name")
     public void checkTitleColorAfterMouseOver() {
-        String actualResult = openMainPage().standardUserLogIn().moveCursorToFirstItemName().getFirstItemColor();
-        String expectedResult = "rgba(61, 220, 145, 1)";
+        String actualResult = openMainPage()
+                .standardUserLogIn()
+                .moveCursorToFirstItemName()
+                .getFirstItemColor();
 
+        String expectedResult = "rgba(61, 220, 145, 1)";
         Assertions.assertEquals(expectedResult, actualResult);
     }
 
     @ParameterizedTest
     @MethodSource("invalidCredentialsData")
+    @DisplayName("Log in with invalid credentials and verify error message")
     public void loginWithInvalidCredentials(String login, String password, String expectedErrorMessage) {
         openMainPage().logIn(login, password);
         AuthPage authPage = new AuthPage(driver);
@@ -97,7 +112,5 @@ public class Tests extends BaseTest {
                 Arguments.arguments("123", "", "Password is required"),
                 Arguments.arguments("", "123", "Username is required")
         );
-
     }
-
 }

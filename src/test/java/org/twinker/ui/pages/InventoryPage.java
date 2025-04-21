@@ -1,5 +1,6 @@
 package org.twinker.ui.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -38,32 +39,38 @@ public class InventoryPage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
+    @Step("Add item to cart by name: {itemName}")
     public InventoryPage addItemToCart(String itemName) {
         String generatedXpath = "//*[text()='" + itemName + "']/parent::a/parent::div/following-sibling::*/button";
         driver.findElement(By.xpath(generatedXpath)).click();
         return this;
     }
 
+    @Step("Click on cart icon")
     public CartPage clickCartIcon() {
         cartIcon.click();
         return new CartPage(driver);
     }
 
+    @Step("Get shopping cart badge")
     public WebElement getShoppingCartBadge() {
         return shoppingCartBadge;
     }
 
+    @Step("Add random item to cart")
     public InventoryPage addRandomAddItemToCart() {
         Random random = new Random();
         addToCartButtons.get(random.nextInt(addToCartButtons.size())).click();
         return this;
     }
 
+    @Step("Click on sort dropdown")
     public InventoryPage clickSortDropdown() {
         sortDropdown.click();
         return this;
     }
 
+    @Step("Select sort option: {sortOption.label}")
     public InventoryPage selectSortOptionByValue(ProductSortOption sortOption) {
         Select select = new Select(sortDropdown);
         select.selectByValue(sortOption.getValue());
@@ -71,36 +78,45 @@ public class InventoryPage extends BasePage {
     }
 
     public enum ProductSortOption {
-        NAME_ASC("az"),
-        NAME_DESC("za"),
-        PRICE_LOWER_HIGH("lohi"),
-        PRICE_HIGH_LOWER("hilo");
+        NAME_ASC("az", "Name: A to Z"),
+        NAME_DESC("za", "Name: Z to A"),
+        PRICE_LOWER_HIGH("lohi", "Price: Low to High"),
+        PRICE_HIGH_LOWER("hilo", "Price: High to Low");
 
         private final String value;
+        private final String label;
 
-        ProductSortOption(String value) {
+        ProductSortOption(String value, String label) {
             this.value = value;
+            this.label = label;
         }
 
         public String getValue() {
             return value;
         }
+
+        public String getLabel() {
+            return label;
+        }
     }
 
+    @Step("Get list of product prices")
     public List<Double> getListOfPrices() {
-        List<Double> priceWithDollar = listOfPrices.stream().map(WebElement::getText)
+        return listOfPrices.stream()
+                .map(WebElement::getText)
                 .map(price -> price.replace("$", ""))
-                .map(Double::parseDouble).toList();
-
-        return priceWithDollar;
+                .map(Double::parseDouble)
+                .toList();
     }
 
+    @Step("Move mouse cursor to first product name")
     public InventoryPage moveCursorToFirstItemName() {
         Actions actions = new Actions(driver);
         actions.moveToElement(firstItemName).perform();
         return this;
     }
 
+    @Step("Get color of first product name")
     public String getFirstItemColor() {
         return firstItemName.getCssValue("color");
     }

@@ -1,5 +1,6 @@
 package org.twinker.ui.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -20,10 +21,12 @@ public class CheckoutCompletePage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
+    @Step("Click on 'Back Home' button")
     public void clickBackHomeButton() {
         backHomeButton.click();
     }
 
+    @Step("Get checkout completion header text")
     public String getCompleteHeaderText() {
         return completeHeaderText.getText();
     }

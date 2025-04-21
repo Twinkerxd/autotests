@@ -1,5 +1,6 @@
 package org.twinker.ui.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -26,21 +27,25 @@ public class CheckoutStepOnePage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
+    @Step("Enter first name: {text}")
     public CheckoutStepOnePage fillFirstNameInput(String text) {
         firstNameInput.sendKeys(text);
         return this;
     }
 
+    @Step("Enter last name: {text}")
     public CheckoutStepOnePage fillLastNameInput(String text) {
         lastNameInput.sendKeys(text);
         return this;
     }
 
+    @Step("Enter postal code: {text}")
     public CheckoutStepOnePage fillPostalCodeInput(String text) {
         postalCodeInput.sendKeys(text);
         return this;
     }
 
+    @Step("Click on Continue button")
     public CheckoutStepTwoPage clickContinueButton() {
         continueButton.click();
         return new CheckoutStepTwoPage(driver);

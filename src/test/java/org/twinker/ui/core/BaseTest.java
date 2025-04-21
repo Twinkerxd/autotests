@@ -1,5 +1,6 @@
 package org.twinker.ui.core;
 
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
@@ -16,6 +17,7 @@ public class BaseTest {
 
     //beforeAll -> docker, kafka
 
+    @Step("Initialize WebDriver and browser settings")
     @BeforeEach
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
@@ -28,6 +30,7 @@ public class BaseTest {
         wait = new WebDriverWait(driver, Duration.ofSeconds(4));
     }
 
+    @Step("Close browser and clean up WebDriver")
     @AfterEach
     public void tearDown() {
         if (driver != null) {
@@ -35,6 +38,7 @@ public class BaseTest {
         }
     }
 
+    @Step("Navigating to the main page")
     public AuthPage openMainPage() {
         driver.get("https://www.saucedemo.com/");
         return new AuthPage(driver);
