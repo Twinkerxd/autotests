@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'io.qameta.allure' version '2.11.2'
 }
 
 group = 'org.example'
@@ -9,14 +10,33 @@ repositories {
     mavenCentral()
 }
 
+def allureVersion = "2.24.0"
+def seleniumVersion = "4.31.0"
+def restAssuredVersion = "5.5.1"
+def javafakerVersion = "1.0.2"
+def lombokVersion = "1.18.24"
+def jacksonDatabindVersion = "2.18.2"
+def junitBomVersion = "5.10.0"
+
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-    testImplementation 'org.seleniumhq.selenium:selenium-java:4.31.0'
-    testImplementation 'io.rest-assured:rest-assured:5.5.1'
-    testImplementation 'com.github.javafaker:javafaker:1.0.2'
-    testImplementation 'org.projectlombok:lombok:1.18.24'
-    testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.18.2'
+    testImplementation platform("org.junit:junit-bom:${junitBomVersion}")
+    testImplementation(
+            "org.junit.jupiter:junit-jupiter",
+            "org.seleniumhq.selenium:selenium-java:${seleniumVersion}",
+            "io.rest-assured:rest-assured:${restAssuredVersion}",
+            "com.github.javafaker:javafaker:${javafakerVersion}",
+            "org.projectlombok:lombok:${lombokVersion}",
+            "com.fasterxml.jackson.core:jackson-databind:${jacksonDatabindVersion}",
+            "io.qameta.allure:allure-junit5:${allureVersion}"
+    )
+}
+
+allure {
+    version = allureVersion
+    autoconfigure = true
+    useJUnit5 {
+        version = allureVersion
+    }
 }
 
 test {
