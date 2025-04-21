@@ -29,6 +29,7 @@ dependencies {
             "com.fasterxml.jackson.core:jackson-databind:${jacksonDatabindVersion}",
             "io.qameta.allure:allure-junit5:${allureVersion}"
     )
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 }
 
 allure {
