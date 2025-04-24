@@ -9,5 +9,5 @@ This project contains a simple automated test framework for UI and API testing u
 - **Gradle**
 - **Allure Reports**
 
-![My Screenshot](assets/allure.png)
+![Allure Report Screenshot](assets/allure.png)
 
