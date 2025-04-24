@@ -2,6 +2,7 @@ package org.twinker.tests.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.javafaker.Faker;
+import io.qameta.allure.Link;
 import io.restassured.RestAssured;
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.ContentType;
@@ -9,6 +10,7 @@ import io.restassured.response.Response;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.twinker.api.model.Company;
 import org.twinker.api.model.Employee;
@@ -22,6 +24,8 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
 
+@DisplayName("API: Company and Employee management")
+@Link("https://x-clients-be.onrender.com/docs/#/")
 public class Tests {
     public static final String URL = "https://x-clients-be.onrender.com";
     public static final String SWAGGER = "https://x-clients-be.onrender.com/docs/#/";
@@ -51,14 +55,10 @@ public class Tests {
         phone = faker.phoneNumber().phoneNumber();
         companyName = faker.company().name();
         companyDescription = faker.company().industry();
-//        Map<Integer, String> twinkerCompanies = getAllCompaniesIdsAndNames()
-//                .entrySet()
-//                .stream()
-//                .filter(entry -> entry.getValue().contains("Twinker"))
-//                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     @Test
+    @DisplayName("Create a new company")
     public void createNewCompanyTest() {
 
         int companyId = createNewCompany()
@@ -71,6 +71,7 @@ public class Tests {
     }
 
     @Test
+    @DisplayName("Delete an existing company")
     public void deleteCompanyTest() {
         int companyId = createNewCompany()
                 .then()
@@ -82,6 +83,7 @@ public class Tests {
     }
 
     @Test
+    @DisplayName("Add an employee to a company")
     public void addEmployeeToCompanyTest() {
         int companyId = createNewCompany().then().extract().path("id");
 
@@ -93,6 +95,7 @@ public class Tests {
     }
 
     @Test
+    @DisplayName("Employee is listed under the company")
     public void isEmployeeDisplayedInTheCompanyList() {
         int companyId = createNewCompany().then().extract().path("id");
 
@@ -106,6 +109,7 @@ public class Tests {
     }
 
     @Test
+    @DisplayName("Deactivate an employee (set isActive to false)")
     public void changeTheEmployeeActivityToFalse() throws JsonProcessingException {
         int companyId = createNewCompany().then().extract().path("id");
         int employeeId = addEmployeeToCompany(companyId)
@@ -126,6 +130,7 @@ public class Tests {
     }
 
     @Test
+    @DisplayName("Reactivate an employee (set isActive to true)")
     public void changeTheEmployeeActivityToTrue() throws JsonProcessingException {
         int companyId = createNewCompany().then().extract().path("id");
         int employeeId = addEmployeeToCompany(companyId)
@@ -144,6 +149,7 @@ public class Tests {
     }
 
     @Test
+    @DisplayName("Update an employee's email")
     public void changeTheEmployeeEmail() {
         int companyId = createNewCompany().then().extract().path("id");
         int employeeId = addEmployeeToCompany(companyId)
@@ -159,6 +165,7 @@ public class Tests {
     }
 
     @Test
+    @DisplayName("Cannot create employee for non-existent company")
     public void cantCreateNewEmployeeForNonExistentCompany() {
         addEmployeeToCompany(0).then().statusCode(500);
     }

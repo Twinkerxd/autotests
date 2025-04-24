@@ -1,5 +1,6 @@
 package org.twinker.tests.ui;
 
+import io.qameta.allure.Link;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -19,12 +20,14 @@ import java.util.stream.Stream;
 
 import static org.twinker.ui.pages.InventoryPage.ProductSortOption.PRICE_LOWER_HIGH;
 
+@DisplayName("UI: Product and Cart flow")
+@Link("https://www.saucedemo.com/")
 public class Tests extends BaseTest {
     // https://www.saucedemo.com/
 
     @Test
     @DisplayName("Complete purchase flow as standard user")
-    @Tag("tag_one")
+    @Tag("E2E")
     public void endToEnd() {
         String actualResult = openMainPage()
                 .standardUserLogIn()
