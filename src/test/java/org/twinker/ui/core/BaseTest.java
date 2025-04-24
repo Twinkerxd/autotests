@@ -6,9 +6,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.twinker.ui.pages.AuthPage;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
 
 public class BaseTest {
@@ -19,11 +23,23 @@ public class BaseTest {
 
     @Step("Initialize WebDriver and browser settings")
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws MalformedURLException {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--guest");
 
-        driver = new ChromeDriver(options);
+        boolean isRemoteRun = true;
+
+        if (isRemoteRun) {
+            DesiredCapabilities capabilities = new DesiredCapabilities();
+            capabilities.setBrowserName("chrome");
+            driver = new RemoteWebDriver(
+                    new URL("https://user1:1234@selenoid.autotests.cloud/wd/hub"),
+                    capabilities
+            );
+        } else {
+            driver = new ChromeDriver(options);
+        }
+
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
