@@ -27,7 +27,7 @@ public class Tests extends BaseTest {
 
     @Test
     @DisplayName("Complete purchase flow as standard user")
-    @Tag("E2E")
+    @Tag("e2e")
     public void endToEnd() {
         String actualResult = openMainPage()
                 .standardUserLogIn()
