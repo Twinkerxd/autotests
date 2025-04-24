@@ -17,6 +17,7 @@ def javafakerVersion = "1.0.2"
 def lombokVersion = "1.18.24"
 def jacksonDatabindVersion = "2.18.2"
 def junitBomVersion = "5.10.0"
+def logbackVersion = "1.4.11"
 
 dependencies {
     testImplementation platform("org.junit:junit-bom:${junitBomVersion}")
@@ -27,7 +28,8 @@ dependencies {
             "com.github.javafaker:javafaker:${javafakerVersion}",
             "org.projectlombok:lombok:${lombokVersion}",
             "com.fasterxml.jackson.core:jackson-databind:${jacksonDatabindVersion}",
-            "io.qameta.allure:allure-junit5:${allureVersion}"
+            "io.qameta.allure:allure-junit5:${allureVersion}",
+            "ch.qos.logback:logback-classic:${logbackVersion}"
     )
     testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 }
@@ -40,6 +42,23 @@ allure {
     }
 }
 
-test {
+//test {
+//    useJUnitPlatform()
+//}
+
+tasks.withType(Test) {
     useJUnitPlatform()
+
+    testLogging {
+        lifecycle {
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
+}
+
+task e2e_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("e2e")
+    }
 }
