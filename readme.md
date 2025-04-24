@@ -10,3 +10,4 @@ This project contains a simple automated test framework for UI and API testing u
 - **Allure Reports**
 
 
+resources/allure.png
