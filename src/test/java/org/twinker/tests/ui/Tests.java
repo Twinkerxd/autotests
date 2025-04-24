@@ -116,4 +116,12 @@ public class Tests extends BaseTest {
                 Arguments.arguments("", "123", "Username is required")
         );
     }
+
+    @Test
+    @Tag("debug")
+    public void debugTest() {
+        System.out.println("=========AVE 1613=========");
+        System.out.println("=========AVE 1613=========");
+        System.out.println("=========AVE 1613=========");
+    }
 }
