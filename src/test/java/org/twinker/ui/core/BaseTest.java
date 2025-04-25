@@ -1,8 +1,11 @@
 package org.twinker.ui.core;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -21,19 +24,20 @@ public class BaseTest {
 
     //beforeAll -> docker, kafka
 
-    @Step("Initialize WebDriver and browser settings")
+
     @BeforeEach
+    @Step("Initialize WebDriver and browser settings")
     public void setUp() throws MalformedURLException {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--guest");
 
-        boolean isRemoteRun = true;
+        String remoteUrl = System.getenv("REMOTE_URL");
 
-        if (isRemoteRun) {
+        if (remoteUrl != null) {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setBrowserName("chrome");
             driver = new RemoteWebDriver(
-                    new URL("https://user1:1234@selenoid.autotests.cloud/wd/hub"),
+                    new URL(remoteUrl),
                     capabilities
             );
         } else {
@@ -46,9 +50,12 @@ public class BaseTest {
         wait = new WebDriverWait(driver, Duration.ofSeconds(4));
     }
 
-    @Step("Close browser and clean up WebDriver")
+
     @AfterEach
+    @Step("Take screenshot, close browser and clean up WebDriver")
     public void tearDown() {
+        saveScreenshot("screen name");
+
         if (driver != null) {
             driver.quit();
         }
@@ -60,4 +67,8 @@ public class BaseTest {
         return new AuthPage(driver);
     }
 
+    public void saveScreenshot(String name) {
+        Allure.getLifecycle().addAttachment(name, "image/png", "png",
+                ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES));
+    }
 }
