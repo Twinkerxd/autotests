@@ -9,7 +9,6 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.twinker.ui.pages.AuthPage;
@@ -31,18 +30,18 @@ public class BaseTest {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--guest");
 
-        String remoteUrl = System.getenv("REMOTE_URL");
+        String remoteUrl = System.getProperty("REMOTE_URL");
+
 
         if (remoteUrl != null) {
-            DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setBrowserName("chrome");
-            driver = new RemoteWebDriver(
-                    new URL(remoteUrl),
-                    capabilities
-            );
+            System.out.println("Running REMOTELY on: " + remoteUrl);
+            options.setCapability("browserName", "chrome");
+            driver = new RemoteWebDriver(new URL(remoteUrl), options);
         } else {
+            System.out.println("Running LOCALLY");
             driver = new ChromeDriver(options);
         }
+
 
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
