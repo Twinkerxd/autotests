@@ -16,10 +16,13 @@ import org.twinker.ui.pages.AuthPage;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class BaseTest {
     protected WebDriver driver;
     protected WebDriverWait wait;
+
 
     //beforeAll -> docker, kafka
 
@@ -53,7 +56,7 @@ public class BaseTest {
     @AfterEach
     @Step("Take screenshot, close browser and clean up WebDriver")
     public void tearDown() {
-        saveScreenshot("screen name");
+        saveScreenshot();
 
         if (driver != null) {
             driver.quit();
@@ -66,8 +69,10 @@ public class BaseTest {
         return new AuthPage(driver);
     }
 
-    public void saveScreenshot(String name) {
-        Allure.getLifecycle().addAttachment(name, "image/png", "png",
+    public void saveScreenshot() {
+        LocalDateTime now = LocalDateTime.now();
+        String formatted = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        Allure.getLifecycle().addAttachment(formatted, "image/png", "png",
                 ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES));
     }
 }
