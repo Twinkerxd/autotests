@@ -45,6 +45,8 @@ allure {
 tasks.withType(Test) {
     useJUnitPlatform()
 
+    // Forward all JVM system properties to the Gradle process,
+    // enabling dynamic configuration (e.g., remote WebDriver URLs, credentials) via -D parameters.
     systemProperties System.getProperties()
 
     testLogging {
@@ -55,11 +57,10 @@ tasks.withType(Test) {
     }
 }
 
-task e2e_test(type: Test) {
+task e2e(type: Test) {
     useJUnitPlatform {
         includeTags("e2e")
     }
-    systemProperties System.getProperties()
 }
 
 task debug(type: Test) {
