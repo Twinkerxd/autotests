@@ -1,19 +1,17 @@
-package org.twinker.ui.core;
+package org.twinker.ui.base;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.twinker.ui.utils.WaitUtils;
 
-import java.time.Duration;
-
-public class BasePage {
+public abstract class BasePage {
 
     protected WebDriver driver;
-    protected WebDriverWait wait;
+    protected WaitUtils waitUtils;
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(4));
+        waitUtils = new WaitUtils(driver);
         PageFactory.initElements(driver, this);
     }
 

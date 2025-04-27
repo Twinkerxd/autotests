@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.twinker.ui.core.BasePage;
+import org.twinker.ui.base.BasePage;
 
 public class CheckoutStepOnePage extends BasePage {
     // https://www.saucedemo.com/checkout-step-one.html

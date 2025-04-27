@@ -8,13 +8,16 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
-import org.twinker.ui.core.BasePage;
+import org.twinker.ui.base.BasePage;
 
 import java.util.List;
 import java.util.Random;
 
 public class InventoryPage extends BasePage {
     // https://www.saucedemo.com/inventory.html
+
+    @FindBy(css = ".title")
+    private WebElement title;
 
     @FindBy(css = "[data-test='shopping-cart-link']")
     private WebElement cartIcon;
@@ -37,6 +40,11 @@ public class InventoryPage extends BasePage {
     public InventoryPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
+    }
+
+    @Step("Get title text")
+    public String getTitleText() {
+        return title.getText();
     }
 
     @Step("Add item to cart by name: {itemName}")

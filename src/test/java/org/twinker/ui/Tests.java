@@ -1,4 +1,4 @@
-package org.twinker.tests.ui;
+package org.twinker.ui;
 
 import io.qameta.allure.Link;
 import org.junit.jupiter.api.Assertions;
@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.twinker.ui.core.BaseTest;
+import org.twinker.ui.base.BaseTest;
 import org.twinker.ui.pages.AuthPage;
 import org.twinker.ui.pages.CartPage;
 import org.twinker.ui.pages.InventoryPage;
@@ -120,8 +120,12 @@ public class Tests extends BaseTest {
     @Test
     @Tag("debug")
     public void debugTest() {
-        System.out.println("=========AVE 1613=========");
-        System.out.println("=========AVE 1613=========");
-        System.out.println("=========AVE 1613=========");
+        String actualTitleText = openMainPage()
+                .logIn("performance_glitch_user", "secret_sauce")
+                .getTitleText();
+
+        String expectedTitleText = "Products";
+
+        Assertions.assertEquals(expectedTitleText, actualTitleText);
     }
 }

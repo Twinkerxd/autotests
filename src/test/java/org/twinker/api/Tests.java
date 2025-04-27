@@ -1,4 +1,4 @@
-package org.twinker.tests.api;
+package org.twinker.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.javafaker.Faker;

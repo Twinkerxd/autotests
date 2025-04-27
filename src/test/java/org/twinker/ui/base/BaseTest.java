@@ -1,4 +1,4 @@
-package org.twinker.ui.core;
+package org.twinker.ui.base;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
@@ -10,22 +10,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.twinker.ui.pages.AuthPage;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class BaseTest {
+public abstract class BaseTest {
     protected WebDriver driver;
-    protected WebDriverWait wait;
-
 
     //beforeAll -> docker, kafka
-
 
     @BeforeEach
     @Step("Initialize WebDriver and browser settings")
@@ -48,8 +43,6 @@ public class BaseTest {
 
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
-        wait = new WebDriverWait(driver, Duration.ofSeconds(4));
     }
 
 
